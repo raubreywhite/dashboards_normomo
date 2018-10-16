@@ -28,7 +28,7 @@ Imports:
   openxlsx
 Suggests:
   testthat
-Remotes: raubreywhite/RAWmisc, raubreywhite/fhi, euromomonetwork/MOMO
+Remotes: raubreywhite/RAWmisc, folkehelseinstituttet/fhi, euromomonetwork/MOMO
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
