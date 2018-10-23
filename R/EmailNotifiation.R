@@ -70,11 +70,16 @@ EmailSSI <- function(folderResultsYearWeek, dateReliable, isTest = TRUE){
   x <- x[wk2<=RAWmisc::YearWeek(dateReliable)]
   fwrite(x,reliableData)
 
+  unstable <- ""
+  if(CONFIG$WEEKS_UNRELIABLE>1){
+    unstable <- sprintf("Please note that only data up to and including week %s is included, as data beyond this is not reliable.<br><br>",RAWmisc::YearWeek(dateReliable))
+  }
+
   emailText <- sprintf("
 <html><body>
 Dear EuroMOMO hub,<br><br>
 Please find attached the current week's results.<br><br>
-Please note that only data up to and including week %s is included, as data beyond this is not reliable.<br><br>
+%s
 Sincerely,<br>
 Norway<br><br><br>
 ------------------------
@@ -82,7 +87,7 @@ Norway<br><br><br>
 DO NOT REPLY TO THIS EMAIL! This email address is not checked by anyone!
 <br>
 To add or remove people to/from this notification list, send their details to richardaubrey.white@fhi.no
-</body></html>",RAWmisc::YearWeek(dateReliable))
+</body></html>",unstable)
 
   if (isTest) {
     fhi::DashboardEmail(
