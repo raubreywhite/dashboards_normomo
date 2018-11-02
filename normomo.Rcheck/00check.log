@@ -1,0 +1,268 @@
+* using log directory ‘/home/travis/build/folkehelseinstituttet/dashboards_normomo/normomo.Rcheck’
+* using R version 3.5.1 (2017-01-27)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --as-cran’
+* checking for file ‘normomo/DESCRIPTION’ ... OK
+* this is package ‘normomo’ version ‘2018.11.02’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... NOTE
+Found the following hidden files and directories:
+  .travis.yml
+These were most likely included in error. See section ‘Package
+structure’ in the ‘Writing R Extensions’ manual.
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking serialization versions ... OK
+* checking whether package ‘normomo’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... NOTE
+File
+  LICENSE
+is not mentioned in the DESCRIPTION file.
+Non-standard files/directories found at top level:
+  ‘pkgdown’ ‘travis’
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... NOTE
+':::' call which should be '::': ‘RAWmisc:::YearN’
+  See the note in ?`:::` about the use of this operator.
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+GraphNPVPPV: warning in melt.data.table(plottingData, id = c("lag",
+  "delayVersion")): partial argument match of 'id' to 'id.vars'
+GraphNPVPPV: warning in geom_bar(stat = "identity", pos = "dodge",
+  width = 0.5): partial argument match of 'pos' to 'position'
+RunGraphsStatistics: warning in GraphBiasVsZScore(plotData = plotData,
+  title = "Totalt antall døde per uke siste år"): partial argument
+  match of 'title' to 'titleBias'
+CleanExportedMOMOData: no visible binding for global variable ‘LPIc’
+CleanExportedMOMOData: no visible binding for global variable ‘excess’
+CleanExportedMOMOData: no visible binding for global variable ‘Pnb’
+EmailSSI: no visible binding for global variable ‘wk2’
+GetData: no visible binding for global variable ‘DoD’
+GetData: no visible binding for global variable ‘DODS_DATO’
+GetData: no visible binding for global variable ‘DoR’
+GetData: no visible binding for global variable ‘ENDR_DATO’
+GetData: no visible binding for global variable ‘DoB’
+GetData: no visible binding for global variable ‘FDATO_YYYYMMDD’
+GetData: no visible binding for global variable ‘age’
+GetData: no visible binding for global variable ‘FYLKE’
+GetData: no visible binding for global variable ‘ageCat’
+GetData: no visible binding for global variable ‘deathWeek’
+GetData: no visible binding for global variable ‘deathYear’
+GraphBias1: no visible binding for global variable ‘wk’
+GraphBias1: no visible binding for global variable ‘label’
+GraphBias1: no visible binding for global variable ‘WoDi’
+GraphBias1: no visible binding for global variable ‘YoDi’
+GraphBias1: no visible binding for global variable ‘lag’
+GraphBias1: no visible binding for global variable ‘nbc_bias’
+GraphBias2: no visible binding for global variable ‘wk’
+GraphBias2: no visible binding for global variable ‘label’
+GraphBias2: no visible binding for global variable ‘WoDi’
+GraphBias2: no visible binding for global variable ‘YoDi’
+GraphBias2: no visible binding for global variable ‘lag’
+GraphBias2: no visible binding for global variable ‘nbc_bias’
+GraphBiasVsZScore: no visible binding for global variable ‘label’
+GraphBiasVsZScore: no visible binding for global variable ‘WoDi’
+GraphBiasVsZScore: no visible binding for global variable ‘YoDi’
+GraphBiasVsZScore: no visible binding for global variable ‘lagLabel’
+GraphBiasVsZScore: no visible binding for global variable ‘lag’
+GraphBiasVsZScore: no visible binding for global variable ‘true_zscore’
+GraphBiasVsZScore: no visible binding for global variable ‘nbc_bias’
+GraphDelay: no visible binding for global variable ‘death’
+GraphDelay: no visible binding for global variable ‘DoD’
+GraphDelay: no visible binding for global variable ‘reg’
+GraphDelay: no visible binding for global variable ‘DoR’
+GraphDelay: no visible binding for global variable ‘ddeath’
+GraphDelay: no visible binding for global variable ‘dreg’
+GraphDelay: no visible binding for global variable ‘delay’
+GraphDelay: no visible binding for global variable ‘isWithin7’
+GraphDelay: no visible binding for global variable ‘isWithin14’
+GraphDelay: no visible binding for global variable ‘isWithin21’
+GraphDelay: no visible global function definition for ‘.’
+GraphDelay: no visible binding for global variable ‘perc7’
+GraphDelay: no visible binding for global variable ‘perc14’
+GraphDelay: no visible binding for global variable ‘smoothed7’
+GraphDelay: no visible binding for global variable ‘smoothed14’
+GraphDelay: no visible binding for global variable ‘smoothedNum7’
+GraphDelay: no visible binding for global variable ‘smoothedNum14’
+GraphDelay: no visible binding for global variable ‘smoothedNum21’
+GraphNPVPPV: no visible binding for global variable ‘lag’
+GraphNPVPPV: no visible global function definition for ‘.’
+GraphNPVPPV: no visible binding for global variable ‘test_results2’
+GraphNPVPPV: no visible binding for global variable ‘test_results4’
+GraphNPVPPV: no visible binding for global variable ‘delayVersion’
+GraphNPVPPV: no visible binding for global variable ‘lagLabel’
+GraphNPVPPV: no visible binding for global variable ‘value’
+GraphPercentRecorded: no visible binding for global variable
+  ‘delayVersion’
+GraphPercentRecorded: no visible global function definition for ‘.’
+GraphPercentRecorded: no visible binding for global variable ‘nb’
+GraphPercentRecorded: no visible binding for global variable ‘true_nbc’
+GraphPercentRecorded: no visible binding for global variable ‘lag’
+GraphPercentRecorded: no visible binding for global variable ‘DoA’
+GraphPercentRecorded: no visible binding for global variable ‘lagLabel’
+GraphPercentRecorded: no visible binding for global variable ‘perc’
+GraphPreviousWeeks: no visible binding for global variable ‘wk’
+GraphPreviousWeeks: no visible binding for global variable ‘label’
+GraphPreviousWeeks: no visible binding for global variable ‘WoDi’
+GraphPreviousWeeks: no visible binding for global variable ‘YoDi’
+GraphPreviousWeeks: no visible binding for global variable ‘ymax’
+GraphPreviousWeeks: no visible binding for global variable ‘nbc’
+GraphPreviousWeeks: no visible binding for global variable ‘UPIb4’
+GraphPreviousWeeks: no visible binding for global variable ‘ymin’
+GraphPreviousWeeks: no visible binding for global variable ‘Lower’
+GraphPreviousWeeks: no visible binding for global variable ‘Pnb’
+GraphPreviousWeeks: no visible binding for global variable ‘UPIb2’
+GraphPreviousWeeks: no visible binding for global variable ‘DoA’
+GraphPreviousWeeks: no visible binding for global variable ‘DoAFactor’
+GraphPreviousWeeks: no visible binding for global variable ‘DoALevel’
+GraphPreviousWeeks: no visible binding for global variable ‘LPIc’
+GraphPreviousWeeks: no visible binding for global variable ‘UPIc’
+GraphsSeasons: no visible binding for global variable ‘seasonType’
+GraphsSeasons: no visible binding for global variable ‘WoDi’
+GraphsSeasons: no visible binding for global variable ‘season’
+GraphsSeasons: no visible binding for global variable ‘YoDi’
+GraphsSeasons: no visible binding for global variable
+  ‘WoDiInsideSeason’
+GraphsSeasons: no visible binding for global variable ‘cumExcess’
+GraphsSeasons: no visible binding for global variable ‘excess’
+GraphsSeasons: no visible binding for global variable ‘cumDeaths’
+GraphsSeasons: no visible binding for global variable ‘nbc’
+GraphsSeasons: no visible binding for global variable
+  ‘maxWoDiInsideSeason’
+GraphsSeasons: no visible binding for global variable
+  ‘categoryOfWeekStatus’
+GraphTogether: no visible binding for global variable ‘wk’
+GraphTogether: no visible binding for global variable ‘titlex’
+GraphTogether: no visible binding for global variable ‘type’
+GraphTogether: no visible binding for global variable ‘ymax’
+GraphTogether: no visible binding for global variable ‘nbc’
+GraphTogether: no visible binding for global variable ‘UPIb4’
+GraphTogether: no visible binding for global variable ‘ymin’
+GraphTogether: no visible binding for global variable ‘Lower’
+GraphTogether: no visible binding for global variable ‘Pnb’
+GraphTogether: no visible binding for global variable ‘UPIb2’
+GraphTogether: no visible binding for global variable
+  ‘unstableEstimates’
+GraphTogether: no visible binding for global variable ‘wkSplit’
+GraphTogether: no visible binding for global variable ‘label’
+GraphTogether: no visible binding for global variable ‘WoDi’
+GraphTogether: no visible binding for global variable ‘YoDi’
+GraphTogether: no visible binding for global variable ‘YoDi2’
+GraphTogether: no visible binding for global variable ‘wk2’
+GraphTogether: no visible binding for global variable ‘LPIc’
+GraphTogether: no visible binding for global variable ‘UPIc’
+GraphTogether: no visible binding for global variable ‘nb’
+RunGraphsDeaths: no visible binding for global variable ‘GROUP’
+RunGraphsStatistics: no visible binding for global variable ‘max_wk’
+RunGraphsStatistics: no visible binding for global variable ‘wk’
+RunGraphsStatistics: no visible global function definition for ‘.’
+RunGraphsStatistics: no visible binding for global variable ‘DoA’
+RunGraphsStatistics: no visible binding for global variable ‘GROUP’
+RunGraphsStatistics: no visible binding for global variable ‘lag’
+RunGraphsStatistics: no visible binding for global variable ‘true_nbc’
+RunGraphsStatistics: no visible binding for global variable ‘nbc’
+RunGraphsStatistics: no visible binding for global variable ‘nbc_bias’
+RunGraphsStatistics: no visible binding for global variable
+  ‘true_zscore’
+RunGraphsStatistics: no visible binding for global variable ‘zscore’
+RunGraphsStatistics: no visible binding for global variable ‘truePos2’
+RunGraphsStatistics: no visible binding for global variable ‘testPos2’
+RunGraphsStatistics: no visible binding for global variable
+  ‘test_results2’
+RunGraphsStatistics: no visible binding for global variable ‘truePos4’
+RunGraphsStatistics: no visible binding for global variable ‘testPos4’
+RunGraphsStatistics: no visible binding for global variable
+  ‘test_results4’
+RunGraphsStatistics: no visible binding for global variable
+  ‘delayVersion’
+RunStatusTiles: no visible binding for global variable ‘wk2’
+RunStatusTiles: no visible binding for global variable ‘GROUP’
+RunStatusTiles: no visible binding for global variable ‘status’
+RunStatusTiles: no visible binding for global variable ‘nbc’
+RunStatusTiles: no visible binding for global variable ‘UPIb4’
+RunStatusTiles: no visible binding for global variable ‘UPIb2’
+RunStatusTiles: no visible binding for global variable ‘name’
+RunTemporaryGraphs: no visible binding for global variable ‘GROUP’
+RunTemporaryGraphs: no visible binding for global variable ‘excess’
+SavingRawData: no visible binding for global variable ‘deathYear’
+SavingRawData: no visible binding for global variable ‘deathWeek’
+SavingRawData: no visible binding for global variable ‘FYLKE’
+xGraphHistoric: no visible binding for global variable ‘wk’
+xGraphHistoric: no visible binding for global variable ‘ymax’
+xGraphHistoric: no visible binding for global variable ‘nbc’
+xGraphHistoric: no visible binding for global variable ‘UPIb4’
+xGraphHistoric: no visible binding for global variable ‘ymin’
+xGraphHistoric: no visible binding for global variable ‘Lower’
+xGraphHistoric: no visible binding for global variable ‘Pnb’
+xGraphHistoric: no visible binding for global variable ‘UPIb2’
+xGraphHistoric: no visible binding for global variable
+  ‘unstableEstimates’
+xGraphHistoric: no visible binding for global variable ‘nb’
+xGraphHistoric: no visible binding for global variable ‘LCIb’
+xGraphRecent: no visible binding for global variable ‘wk’
+xGraphRecent: no visible binding for global variable ‘ymax’
+xGraphRecent: no visible binding for global variable ‘nbc’
+xGraphRecent: no visible binding for global variable ‘UPIb4’
+xGraphRecent: no visible binding for global variable ‘ymin’
+xGraphRecent: no visible binding for global variable ‘Lower’
+xGraphRecent: no visible binding for global variable ‘Pnb’
+xGraphRecent: no visible binding for global variable ‘UPIb2’
+xGraphRecent: no visible binding for global variable
+  ‘unstableEstimates’
+xGraphRecent: no visible binding for global variable ‘label’
+xGraphRecent: no visible binding for global variable ‘WoDi’
+xGraphRecent: no visible binding for global variable ‘YoDi’
+xGraphRecent: no visible binding for global variable ‘LPIc’
+xGraphRecent: no visible binding for global variable ‘UPIc’
+xGraphRecent: no visible binding for global variable ‘nb’
+xGraphRecent: no visible binding for global variable ‘LCIb’
+Undefined global functions or variables:
+  . age ageCat categoryOfWeekStatus cumDeaths cumExcess ddeath death
+  deathWeek deathYear delay delayVersion DoA DoAFactor DoALevel DoB DoD
+  DODS_DATO DoR dreg ENDR_DATO excess FDATO_YYYYMMDD FYLKE GROUP
+  isWithin14 isWithin21 isWithin7 label lag lagLabel LCIb Lower LPIc
+  max_wk maxWoDiInsideSeason name nb nbc nbc_bias perc perc14 perc7 Pnb
+  reg season seasonType smoothed14 smoothed7 smoothedNum14
+  smoothedNum21 smoothedNum7 status test_results2 test_results4
+  testPos2 testPos4 titlex true_nbc true_zscore truePos2 truePos4 type
+  unstableEstimates UPIb2 UPIb4 UPIc value wk wk2 wkSplit WoDi
+  WoDiInsideSeason ymax ymin YoDi YoDi2 zscore
+Consider adding
+  importFrom("stats", "lag")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking examples ... NONE
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘testthat.R’
+* DONE
+Status: 4 NOTEs

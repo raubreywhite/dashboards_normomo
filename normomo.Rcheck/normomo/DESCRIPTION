@@ -1,0 +1,24 @@
+Package: normomo
+Title: What the Package Does (one line, title case)
+Version: 2018.11.02
+Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+Depends: R (>= 3.4.0)
+Imports: MOMO, ggplot2, grid, maptools, rmarkdown, stringr, readxl,
+        gmailr, broom, magrittr, lubridate, data.table, caTools, utils,
+        fhi, RAWmisc, gridExtra, grDevices, stats, zip, openxlsx
+Suggests: testthat
+Remotes: raubreywhite/RAWmisc, folkehelseinstituttet/fhi,
+        euromomonetwork/MOMO
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Additional_repositories: https://folkehelseinstituttet.github.io/drat/,
+        https://raubreywhite.github.io/drat/,
+        https://euromomonetwork.github.io/drat/
+NeedsCompilation: no
+Packaged: 2018-11-02 09:44:27 UTC; travis
+Author: First Last [aut, cre]
+Maintainer: First Last <first.last@example.com>
+Built: R 3.5.1; ; 2018-11-02 09:44:28 UTC; unix
