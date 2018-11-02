@@ -1,2 +1,0 @@
-get -r "ut" /data_raw/normomo/
-rm ut/*
