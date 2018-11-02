@@ -4,22 +4,25 @@ r_packages:
 - covr
 - drat
 - pkgdown
+- lintr
+- styler
 before_install:
-- bash make.sh
+- bash travis/make.sh
 after_success:
+- Rscript -e 'lintr::lint_package(lint=lintr::with_defaults(camel_case_linter = NULL,
+  snake_case_linter=NULL, line_length_linter = lintr::line_length_linter(120), object_usage_linter=NULL))'
 - Rscript -e 'library(covr); codecov()'
 - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash
-  deploy.sh
+  travis/drat.sh
+- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash
+  travis/styler.sh
 - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && Rscript
   -e 'Sys.sleep(10);install.packages("normomo",repos="https://folkehelseinstituttet.github.io/drat/");pkgdown::build_site()'
 deploy:
   provider: pages
   skip-cleanup: true
-  github-token: "$GH_TOKEN"
+  github-token: "$GITHUB_PAT"
   keep-history: true
   local-dir: docs
   on:
     branch: master
-env:
-  global:
-    secure: RxxJfZiJzPRzPY86PjhK+N03bW9QknzSSHz0gXugLZmkeMe7ftsuyPsjxDVSeN2AU+JJ3wkW8OxD4ovs/OP6JW6ywKpgdh58UGfr9U1qj4VMUkaib1n754dVmmbD7XAJNdIcTlcGckOfnlePm6mCjm0jarNQMx+LJj4NbFMDWPunzxsA3rSCzecIWjNh+nQmJ48WgMoqaooL4EdUlKXnEn0L5vCvkbgB+7GxJA9M+KG9NO/pBntVkjIXs5hkku1WEix5Ywtlq0ucwGu9t/VCoi/JNdiCu5MlY4O8xRz3hqW3BwRiZVaL29h4o43RZVw9z8yzKYZShS3QUPhJCZlRQQ6iKT8UxCFVq6fTnq2R4b87GRH/28L7M4O5hLRvLP767fKmfFw2HKg6ZCQJ+av6t2Ot1ayynfmj9IwEt1bAe4I4gaqO40pckqgl4AeHZWNgrs8MclJvSYN5Bn9l9jQepXQ1f+o+FQQpcKwmqCLuciKUD/zkRzXMIKNP49A72ggsnKy6GVR+OVtg+Gi/szG9ZrW+Wp/Zw41faNQ27tOEgjJJvXSEZ1zkKQuqMe1gU5extbPc+xJiZ+u1DC5sSBQKFWKBA2IyBk9ZIJQPOkXRQCV9Nu7e6AEin0fMGmF7DDAl4KbHmHYLEGvZqX0txS5VB6+mqZRR9UrInhjAfTtHWyY=
