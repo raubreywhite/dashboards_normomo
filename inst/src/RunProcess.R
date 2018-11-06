@@ -143,7 +143,7 @@ custom_delayMOMO_richard <- function(aggr, zvalue=1.96) {
 
 hfile <- data.frame(readxl::read_excel(system.file("extdata", "bank_holidays.xlsx", package = "normomo"))[,c("date", "closed")])
 hfile$date <- as.Date(hfile$date)
-#fwrite(hfile,file=DashboardFolder("data_clean","bank_holidays.txt"))
+#fwrite(hfile,file=fhi::DashboardFolder("data_clean","bank_holidays.txt"))
 
 info <- GetDataInfo()
 
@@ -298,7 +298,7 @@ for(i in 1:nrow(stackAnalyses)){
 
   saveRDS(data,s[["MOMOFolderResultsData"]])
   if(s[["runName"]]=="Norway"){
-    saveRDS(data,DashboardFolder("data_app","data.RDS"))
+    saveRDS(data,fhi::DashboardFolder("data_app","data.RDS"))
   }
 
   RunGraphsDeaths(
@@ -314,7 +314,7 @@ for(i in 1:nrow(stackAnalyses)){
 
 allResults <- rbindlist(allResults)
 cat(sprintf("%s/%s/R/NORMOMO Saving data_processed.xlsx",Sys.time(),Sys.getenv("COMPUTER")),"\n")
-openxlsx::write.xlsx(allResults,DashboardFolder("results",file.path(RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]]),"data","data_processed.xlsx")))
+openxlsx::write.xlsx(allResults,fhi::DashboardFolder("results",file.path(RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]]),"data","data_processed.xlsx")))
 
 ## Grid graph
 RunStatusTiles(allResults=allResults,
