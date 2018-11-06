@@ -150,7 +150,7 @@ info <- GetDataInfo()
 masterData <- GetData(
   fDone=info[["fDone"]],
   f=info[["f"]],
-  forceRun=forceRun
+  forceRun=fhi::DashboardIsDev()
   )
 
 # Set up folders
