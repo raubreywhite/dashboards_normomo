@@ -4,14 +4,12 @@
 \alias{EmailSSI}
 \title{blah}
 \usage{
-EmailSSI(folderResultsYearWeek, dateReliable, isTest = TRUE)
+EmailSSI(folderResultsYearWeek, dateReliable)
 }
 \arguments{
 \item{folderResultsYearWeek}{a}
 
 \item{dateReliable}{a}
-
-\item{isTest}{a}
 }
 \description{
 blah
