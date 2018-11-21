@@ -20,38 +20,28 @@
 
 #' blah
 #' @param folderResultsYearWeek a
-#' @param isTest a
 #' @importFrom fhi DashboardEmail
 #' @export EmailInternal
-EmailInternal <- function(folderResultsYearWeek, isTest = TRUE) {
+EmailInternal <- function(folderResultsYearWeek) {
   emailText <- "New NorMOMO results available to download from:
 <br><br>
 <a href='file:///F:/Prosjekter/Dashboards/results/normomo/'>F:/Prosjekter/Dashboards/results/normomo/</a>
 "
 
-  if (isTest) {
-    fhi::DashboardEmail(
-      "normomo_test",
-      emailSubject = "TESTING EmailInternal",
-      emailText
-    )
-  } else {
-    fhi::DashboardEmail(
-      "normomo_results",
-      "New NorMOMO results available",
-      emailText
-    )
-  }
+  fhi::DashboardEmail(
+    "normomo_results",
+    "New NorMOMO results available",
+    emailText
+  )
 }
 
 
 #' blah
 #' @param folderResultsYearWeek a
 #' @param dateReliable a
-#' @param isTest a
 #' @importFrom fhi DashboardEmail
 #' @export EmailSSI
-EmailSSI <- function(folderResultsYearWeek, dateReliable, isTest = TRUE) {
+EmailSSI <- function(folderResultsYearWeek, dateReliable) {
   currentYearWeek <- stringr::str_extract(folderResultsYearWeek, "[0-9]*-[0-9]*")
 
   files <- list.files(file.path(folderResultsYearWeek, "MOMO"))
@@ -88,23 +78,12 @@ DO NOT REPLY TO THIS EMAIL! This email address is not checked by anyone!
 To add or remove people to/from this notification list, send their details to richardaubrey.white@fhi.no
 </body></html>", unstable)
 
-  if (isTest) {
-    fhi::DashboardEmail(
-      "normomo_test",
-      emailSubject = sprintf("TESTING EmailSSI [euromomo input] [Norway] [%s]", stringr::str_replace(currentYearWeek, "-", " ")),
-      emailText,
-      emailAttachFiles = reliableData,
-      emailFooter = FALSE,
-      BCC = FALSE
-    )
-  } else {
-    fhi::DashboardEmail(
-      "normomo_ssi",
-      emailSubject = sprintf("[euromomo input] [Norway] [%s]", stringr::str_replace(currentYearWeek, "-", " ")),
-      emailText,
-      emailAttachFiles = reliableData,
-      emailFooter = FALSE,
-      BCC = FALSE
-    )
-  }
+  fhi::DashboardEmail(
+    "normomo_ssi",
+    emailSubject = sprintf("[euromomo input] [Norway] [%s]", stringr::str_replace(currentYearWeek, "-", " ")),
+    emailText,
+    emailAttachFiles = reliableData,
+    emailFooter = FALSE,
+    BCC = FALSE
+  )
 }
