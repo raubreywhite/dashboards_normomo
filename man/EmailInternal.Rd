@@ -4,12 +4,10 @@
 \alias{EmailInternal}
 \title{blah}
 \usage{
-EmailInternal(folderResultsYearWeek, isTest = TRUE)
+EmailInternal(folderResultsYearWeek)
 }
 \arguments{
 \item{folderResultsYearWeek}{a}
-
-\item{isTest}{a}
 }
 \description{
 blah
