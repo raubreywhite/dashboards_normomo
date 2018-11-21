@@ -515,9 +515,9 @@ RunGraphsStatistics <- function(runName = "Norway",
   plotData[truePos4 == FALSE & testPos4 == TRUE, test_results4 := "FP"]
   plotData[truePos4 == TRUE & testPos4 == FALSE, test_results4 := "FN"]
 
-  print(with(plotData[lag == 0], xtabs(~test_results2 + delayVersion)))
-  print(with(plotData[lag == 1], xtabs(~test_results2 + delayVersion)))
-  print(with(plotData[lag == 2], xtabs(~test_results2 + delayVersion)))
+  print(with(plotData[lag == 0], xtabs(~ test_results2 + delayVersion)))
+  print(with(plotData[lag == 1], xtabs(~ test_results2 + delayVersion)))
+  print(with(plotData[lag == 2], xtabs(~ test_results2 + delayVersion)))
 
   for (i in unique(plotData$delayVersion)) {
     q <- gridExtra::grid.arrange(
