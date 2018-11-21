@@ -168,9 +168,9 @@ stackAnalyses <- stack[["stackAnalyses"]]
 
 #### STATISTICS
 
-print("STARTING STATISTICS")
+fhi::DashboardMsg("STARTING STATISTICS")
 
-pb <- RAWmisc::ProgressBarCreate(min=0,max=nrow(stackStatistics),flush=TRUE)
+pb <- RAWmisc::ProgressBarCreate(min=0,max=nrow(stackStatistics),flush=fhi::DashboardIsDev())
 allPlotData <- vector("list",length=nrow(stackStatistics))
 dataAnalysis <- as.data.frame(masterData[!is.na(age),c("DoD","DoR","age"),with=F])
 
@@ -194,7 +194,7 @@ for(i in 1:nrow(stackStatistics)){
     WEnd = 52,
     country = s[["runName"]],
     source = "FHI",
-    MDATA = dataAnalysis[dataAnalysis$age %in% 15:64,],
+    MDATA = dataAnalysis,
     HDATA = hfile,
     INPUTDIR = s[["MOMOFolderInput"]],
     WDIR = tempdir(),
@@ -227,8 +227,6 @@ for(i in 1:nrow(stackStatistics)){
 
 allPlotData <- rbindlist(allPlotData)[!is.na(excess)]
 
-print(allPlotData)
-
 RunGraphsStatistics(
   runName=s[["runName"]],
   allPlotData=allPlotData,
@@ -238,7 +236,7 @@ RunGraphsStatistics(
 )
 
 ### ANALYSES
-print("STARTING ANALYSES")
+fhi::DashboardMsg("STARTING ANALYSES")
 
 pb <- RAWmisc::ProgressBarCreate(min=0,max=nrow(stackAnalyses),flush=TRUE)
 allResults <- vector("list",100)
@@ -313,7 +311,7 @@ for(i in 1:nrow(stackAnalyses)){
 }
 
 allResults <- rbindlist(allResults)
-cat(sprintf("%s/%s/R/NORMOMO Saving data_processed.xlsx",Sys.time(),Sys.getenv("COMPUTER")),"\n")
+fhi::DashboardMsg("Saving data_processed.xlsx")
 openxlsx::write.xlsx(allResults,fhi::DashboardFolder("results",file.path(RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]]),"data","data_processed.xlsx")))
 
 ## Grid graph
@@ -327,7 +325,7 @@ SavingRawData(
   masterData=masterData
 )
 
-cat(sprintf("%s/%s/R/NORMOMO Zipping results",Sys.time(),Sys.getenv("COMPUTER")),"\n")
+fhi::DashboardMsg("Zipping results")
 ZipResults(
   folderResults=fhi::DashboardFolder("results"),
   folderResultsYearWeek=fhi::DashboardFolder("results",RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]])),
@@ -335,18 +333,11 @@ ZipResults(
   folderDataAppZip=fhi::DashboardFolder("data_app",paste0("archive_",RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]]),".zip"))
 )
 
-if(Sys.getenv("COMPUTER")=="smhb"){
-  TEST_EMAILS <- FALSE
-} else {
-  TEST_EMAILS <- TRUE
-}
-EmailInternal(folderResultsYearWeek=file.path(fhi::DashboardFolder("results",RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]]))),
-              isTest=TEST_EMAILS)
+EmailInternal(folderResultsYearWeek=file.path(fhi::DashboardFolder("results",RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]]))))
 EmailSSI(folderResultsYearWeek=file.path(fhi::DashboardFolder("results",RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]]))),
-         dateReliable=info$dateData-CONFIG$WEEKS_UNRELIABLE*7,
-         isTest=TEST_EMAILS)
+         dateReliable=info$dateData-CONFIG$WEEKS_UNRELIABLE*7)
 
 CreateLatestDoneFile(f=info$f)
 
-cat(sprintf("%s/%s/R/NORMOMO Exited successfully",Sys.time(),Sys.getenv("COMPUTER")),"\n")
-quit(save="no", status=0)
+fhi::DashboardMsg("Exited successfully")
+if(!fhi::DashboardIsDev()) quit(save="no", status=0)
