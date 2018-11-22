@@ -140,6 +140,7 @@ custom_delayMOMO_richard <- function(aggr, zvalue=1.96) {
 
 
 # Set up data
+if (!dir.exists("/data_raw/sykdomspuls/normomo")) dir.create("/data_raw/sykdomspuls/normomo")
 
 hfile <- data.frame(readxl::read_excel(system.file("extdata", "bank_holidays.xlsx", package = "normomo"))[,c("date", "closed")])
 hfile$date <- as.Date(hfile$date)
@@ -295,6 +296,7 @@ for(i in 1:nrow(stackAnalyses)){
   allResults[[i]][,name:=s[["runName"]]]
 
   saveRDS(data,s[["MOMOFolderResultsData"]])
+  saveRDS(data,s[["SykdomspulsFolderResultsData"]])
   if(s[["runName"]]=="Norway"){
     saveRDS(data,fhi::DashboardFolder("data_app","data.RDS"))
   }

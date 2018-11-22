@@ -37,6 +37,11 @@ GenerateStack <- function(
     "MOMO"
   )
 
+  stack$SykdomspulsFolderResultsData <- file.path(
+    "/data_raw/sykdomspuls/normomo",
+    paste0(stack$runName, ".RDS")
+  )
+
   stack$MOMOFolderResultsData <- file.path(
     folder_results,
     RAWmisc::YearWeek(dateDataMinusOneWeek),
