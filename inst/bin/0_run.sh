@@ -15,7 +15,7 @@ COMPUTER=$(cat /tmp/computer)
 
   if [ "$COMPUTER" == "smhb" ] ; then
     echo "`date +%Y-%m-%d` `date +%H:%M:%S`/$COMPUTER/BASH/NORMOMO GRAB DATA"
-    sshpass -p$NORMOMO_EVRY sftp -o StrictHostKeyChecking=no -oBatchMode=no -b /src/normomo/data_grab.src FHIDOD01@sftp.infotorg.no;
+    sshpass -p$NORMOMO_EVRY sftp -o StrictHostKeyChecking=no -oBatchMode=no -b /r/normomo/bin/data_grab.src FHIDOD01@sftp.infotorg.no;
     mv /data_raw/normomo/ut/* /data_raw/normomo/
     rmdir /data_raw/normomo/ut
   else
