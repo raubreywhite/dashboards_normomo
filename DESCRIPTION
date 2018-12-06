@@ -27,7 +27,9 @@ Imports:
   zip,
   openxlsx
 Suggests:
-  testthat
+  testthat,
+    knitr,
+    rmarkdown
 Remotes: raubreywhite/RAWmisc, folkehelseinstituttet/fhi, euromomonetwork/MOMO
 License: GPL-3
 Encoding: UTF-8
