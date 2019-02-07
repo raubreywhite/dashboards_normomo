@@ -1,6 +1,6 @@
 Package: normomo
 Title: What the Package Does (one line, title case)
-Version: 2018.12.06
+Version: 2019.02.07
 Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 Depends: R (>= 3.4.0)
