@@ -3,7 +3,7 @@
 #' @param folderResultsYearWeek a
 #' @param folderResultsZip a
 #' @param folderDataAppZip a
-#' @importFrom zip zip
+#' @importFrom zip zipr
 #' @export ZipResults
 ZipResults <- function(
                        folderResults = fhi::DashboardFolder("results"),
@@ -12,7 +12,7 @@ ZipResults <- function(
                        folderDataAppZip = fhi::DashboardFolder("data_app", paste0("archive_", RAWmisc::YearWeek(), ".zip"))) {
   orig <- getwd()
   setwd(folderResults)
-  zip::zip(folderResultsZip, folderResultsYearWeek)
+  zip::zipr(folderResultsZip, folderResultsYearWeek)
   setwd(orig)
   file.copy(folderResultsZip, folderDataAppZip)
 }
