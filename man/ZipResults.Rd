@@ -6,8 +6,9 @@
 \usage{
 ZipResults(folderResults = fhi::DashboardFolder("results"),
   folderResultsYearWeek = fhi::DashboardFolder("results",
-  RAWmisc::YearWeek()), folderResultsZip = fhi::DashboardFolder("results",
-  paste0("archive_", RAWmisc::YearWeek(), ".zip")),
+  RAWmisc::YearWeek()),
+  folderResultsZip = fhi::DashboardFolder("results", paste0("archive_",
+  RAWmisc::YearWeek(), ".zip")),
   folderDataAppZip = fhi::DashboardFolder("data_app", paste0("archive_",
   RAWmisc::YearWeek(), ".zip")))
 }
