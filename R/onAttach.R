@@ -1,5 +1,5 @@
 .onAttach <- function(libname, pkgname) {
   packageStartupMessage("PACKAGE: normomo")
-  packageStartupMessage("Version 2018.12.06 at 09:42")
+  packageStartupMessage("Version 2019.02.07 at 13:41")
   packageStartupMessage("Developed by Richard White, Norwegian Institute of Public Health")
 }
