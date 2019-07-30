@@ -4,8 +4,6 @@
 #' @param f a
 #' @param dateDataMinusOneWeek a
 #' @param dateData a
-#' @importFrom RAWmisc YearWeek
-#' @importFrom RAWmisc YearN
 #' @import data.table
 #' @export GenerateStack
 GenerateStack <- function(
@@ -33,7 +31,7 @@ GenerateStack <- function(
 
   stack$MOMOFolderResults <- file.path(
     folder_results,
-    RAWmisc::YearWeek(dateDataMinusOneWeek),
+    fhi::isoyearweek(dateDataMinusOneWeek),
     "MOMO"
   )
 
@@ -44,24 +42,24 @@ GenerateStack <- function(
 
   stack$MOMOFolderResultsData <- file.path(
     folder_results,
-    RAWmisc::YearWeek(dateDataMinusOneWeek),
+    fhi::isoyearweek(dateDataMinusOneWeek),
     "data",
     paste0(stack$runName, ".RDS")
   )
 
   stack$MOMOFolderResultsGraphsStatus <- file.path(
     folder_results,
-    RAWmisc::YearWeek(dateDataMinusOneWeek),
+    fhi::isoyearweek(dateDataMinusOneWeek),
     "graphs_status"
   )
 
   stack$MOMOFolderResultsGraphsStatistics <- file.path(
     folder_results,
-    RAWmisc::YearWeek(dateDataMinusOneWeek),
+    fhi::isoyearweek(dateDataMinusOneWeek),
     "graphs_statistics"
   )
 
-  stack$MOMOYsum <- RAWmisc:::YearN(dateDataMinusOneWeek)
+  stack$MOMOYsum <- fhi::isoyear_n(dateDataMinusOneWeek)
   stack$dateDataMinusOneWeek <- dateDataMinusOneWeek
   stack$dateData <- dateData
   # stack$dateData[[1]] <- c(dateData-seq(4*52*7,0,by=-7))

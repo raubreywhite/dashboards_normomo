@@ -49,7 +49,6 @@ GetDataInfo <- function(
 #' @param f a
 #' @param forceRun a
 #' @importFrom fhi DashboardFolder
-#' @importFrom RAWmisc IsFileStable WeekN YearN
 #' @import data.table
 #' @export GetData
 GetData <- function(
@@ -60,7 +59,7 @@ GetData <- function(
   if (fDone == f & !forceRun) {
     cat(sprintf("%s/%s/R/NORMOMO No new data", Sys.time(), Sys.getenv("COMPUTER")), "\n")
     quit(save = "no", status = 0)
-  } else if (!RAWmisc::IsFileStable(file.path(folder_raw, paste0("FHIDOD2_", f, ".txt")))) {
+  } else if (!fhi::file_stable(file.path(folder_raw, paste0("FHIDOD2_", f, ".txt")))) {
     cat(sprintf("%s/%s/R/NORMOMO Unstable data file", Sys.time(), Sys.getenv("COMPUTER")), "\n")
     quit(save = "no", status = 0)
   } else {
@@ -76,8 +75,8 @@ GetData <- function(
     masterData[FYLKE %in% c(16, 17), FYLKE := 50] # recoding south and north tronderlag to tronderlag
 
     masterData[, ageCat := cut(age, c(0, 4, 14, 64, 200), include.lowest = TRUE)]
-    masterData[, deathWeek := RAWmisc::WeekN(masterData$DoD)]
-    masterData[, deathYear := RAWmisc::YearN(masterData$DoD)]
+    masterData[, deathWeek := fhi::isoweek_n(masterData$DoD)]
+    masterData[, deathYear := fhi::isoyear_n(masterData$DoD)]
 
     return(masterData)
   }

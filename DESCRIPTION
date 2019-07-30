@@ -28,11 +28,11 @@ Imports:
   openxlsx,
   R6,
   fd,
-  fhidata
+  fhidata,
+  fhiplot
 Suggests:
   testthat,
-    knitr,
-    rmarkdown
+    knitr
 Remotes: raubreywhite/RAWmisc, folkehelseinstituttet/fhi, euromomonetwork/MOMO
 License: GPL-3
 Encoding: UTF-8

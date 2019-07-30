@@ -54,7 +54,7 @@ GraphTogether <- function(
   breaks <- unique(plottingData[, c("wk", "YoDi"), with = FALSE])
   setorder(breaks, wk)
   breaks[, YoDi2 := shift(YoDi)]
-  breaksBottom <- na.omit(breaks[breaks$YoDi != breaks$YoDi2, ])
+  breaksBottom <- stats::na.omit(breaks[breaks$YoDi != breaks$YoDi2, ])
   breaksBottom$label <- paste("1/", breaksBottom$YoDi, sep = "")
   breaksBottom[, wk := wk * 10]
 
@@ -320,7 +320,6 @@ GraphsSeasons <- function(plotData) {
 #' @param dateReliable a
 #' @import stringr
 #' @importFrom RAWmisc FootnoteGridArrange
-#' @importFrom fhi SMAOpng
 #' @import data.table
 #' @importFrom gridExtra grid.arrange
 #' @importFrom grDevices dev.off
@@ -386,7 +385,7 @@ RunGraphsDeaths <- function(runName = "norway",
       newpage = F,
       bottom = RAWmisc::FootnoteGridArrange(paste("Sist oppdatert: ", strftime(dateData, format = "%d/%m/%Y"), sep = ""))
     )
-    RAWmisc::saveA4(q, filename = paste0(folder, "/excl_reported_", runName, "-", i, "-", yearWeek, ".png"))
+    fhiplot::save_a4(q, filename = paste0(folder, "/excl_reported_", runName, "-", i, "-", yearWeek, ".png"))
 
     q <- gridExtra::grid.arrange(
       GraphTogether(
@@ -401,7 +400,7 @@ RunGraphsDeaths <- function(runName = "norway",
       newpage = F,
       bottom = RAWmisc::FootnoteGridArrange(paste("Sist oppdatert: ", strftime(dateData, format = "%d/%m/%Y"), sep = ""))
     )
-    RAWmisc::saveA4(q, filename = paste0(folder, "/incl_reported_", runName, "-", i, "-", yearWeek, ".png"))
+    fhiplot::save_a4(q, filename = paste0(folder, "/incl_reported_", runName, "-", i, "-", yearWeek, ".png"))
 
 
     # q <- gridExtra::grid.arrange(
@@ -417,7 +416,7 @@ RunGraphsDeaths <- function(runName = "norway",
     #   newpage=F,
     #   bottom = RAWmisc::FootnoteGridArrange(paste("Sist oppdatert: ",strftime(dateData,format="%d/%m/%Y"),sep=""))
     # )
-    # RAWmisc::saveA4(q,filename=paste0(folder,"/both_reported_",runName,"-",i,"-", yearWeek,".png"),landscape=F)
+    # fhiplot::save_a4(q,filename=paste0(folder,"/both_reported_",runName,"-",i,"-", yearWeek,".png"),landscape=F)
   }
 }
 
@@ -468,7 +467,6 @@ GraphNPVPPV <- function(plotData, titleBias) {
 #' @param dateData a
 #' @import stringr
 #' @importFrom RAWmisc FootnoteGridArrange
-#' @importFrom fhi SMAOpng
 #' @import data.table
 #' @importFrom gridExtra grid.arrange
 #' @importFrom grDevices dev.off
@@ -529,7 +527,7 @@ RunGraphsStatistics <- function(runName = "norway",
       newpage = F,
       bottom = RAWmisc::FootnoteGridArrange(paste("Sist oppdatert: ", strftime(dateData, format = "%d/%m/%Y"), sep = ""))
     )
-    RAWmisc::saveA4(q, filename = paste0(folder, "/previous_", i, "-", runName, "-", i, "-", yearWeek, ".png"))
+    fhiplot::save_a4(q, filename = paste0(folder, "/previous_", i, "-", runName, "-", i, "-", yearWeek, ".png"))
 
     q <- gridExtra::grid.arrange(
       GraphBias1(
@@ -544,7 +542,7 @@ RunGraphsStatistics <- function(runName = "norway",
       newpage = F,
       bottom = RAWmisc::FootnoteGridArrange(paste("Sist oppdatert: ", strftime(dateData, format = "%d/%m/%Y"), sep = ""))
     )
-    RAWmisc::saveA4(q, filename = paste0(folder, "/bias_", i, "-", runName, "-", i, "-", yearWeek, ".png"))
+    fhiplot::save_a4(q, filename = paste0(folder, "/bias_", i, "-", runName, "-", i, "-", yearWeek, ".png"))
   }
 
   q <- gridExtra::grid.arrange(
@@ -556,7 +554,7 @@ RunGraphsStatistics <- function(runName = "norway",
     newpage = F,
     bottom = RAWmisc::FootnoteGridArrange(paste("Sist oppdatert: ", strftime(dateData, format = "%d/%m/%Y"), sep = ""))
   )
-  RAWmisc::saveA4(q, filename = paste0(folder, "/zscore_", runName, "-", yearWeek, ".png"))
+  fhiplot::save_a4(q, filename = paste0(folder, "/zscore_", runName, "-", yearWeek, ".png"))
 
   q <- gridExtra::grid.arrange(
     GraphPercentRecorded(plotData = plotData),
@@ -564,7 +562,7 @@ RunGraphsStatistics <- function(runName = "norway",
     newpage = F,
     bottom = RAWmisc::FootnoteGridArrange(paste("Sist oppdatert: ", strftime(dateData, format = "%d/%m/%Y"), sep = ""))
   )
-  RAWmisc::saveA4(q, filename = paste0(folder, "/perc_recorded_", runName, "-", yearWeek, ".png"))
+  fhiplot::save_a4(q, filename = paste0(folder, "/perc_recorded_", runName, "-", yearWeek, ".png"))
 
   q <- gridExtra::grid.arrange(
     GraphNPVPPV(plotData = plotData),
@@ -572,5 +570,5 @@ RunGraphsStatistics <- function(runName = "norway",
     newpage = F,
     bottom = RAWmisc::FootnoteGridArrange(paste("Sist oppdatert: ", strftime(dateData, format = "%d/%m/%Y"), sep = ""))
   )
-  RAWmisc::saveA4(q, filename = paste0(folder, "/npvppv_", runName, "-", yearWeek, ".png"))
+  fhiplot::save_a4(q, filename = paste0(folder, "/npvppv_", runName, "-", yearWeek, ".png"))
 }
