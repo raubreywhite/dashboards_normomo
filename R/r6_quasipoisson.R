@@ -1,30 +1,30 @@
 #' quasipoission
 #' @import R6
 #' @export standard
-standard <-  R6::R6Class(
+standard <- R6::R6Class(
   "standard",
   portable = FALSE,
   cloneable = FALSE,
   list(
     conf = NULL,
     results_field_types = c(
-      "location_code"="TEXT",
-      "age"="TEXT",
-      "wk"="INTEGER",
-      "yrwk"="TEXT",
-      "YoDi"="INTEGER",
-      "WoDi"="INTEGER",
-      "Pnb"="DOUBLE",
-      "nb"="DOUBLE",
-      "nbc"="DOUBLE",
-      "UPIb2"="DOUBLE",
-      "UPIb4"="DOUBLE",
-      "UPIc"="DOUBLE",
-      "LPIc"="DOUBLE",
-      "UCIc"="DOUBLE",
-      "LCIc"="DOUBLE",
-      "zscore"="DOUBLE",
-      "excess"="DOUBLE"
+      "location_code" = "TEXT",
+      "age" = "TEXT",
+      "wk" = "INTEGER",
+      "yrwk" = "TEXT",
+      "YoDi" = "INTEGER",
+      "WoDi" = "INTEGER",
+      "Pnb" = "DOUBLE",
+      "nb" = "DOUBLE",
+      "nbc" = "DOUBLE",
+      "UPIb2" = "DOUBLE",
+      "UPIb4" = "DOUBLE",
+      "UPIc" = "DOUBLE",
+      "LPIc" = "DOUBLE",
+      "UCIc" = "DOUBLE",
+      "LCIc" = "DOUBLE",
+      "zscore" = "DOUBLE",
+      "excess" = "DOUBLE"
     ),
     results_keys = c(
       "location_code",
@@ -32,8 +32,7 @@ standard <-  R6::R6Class(
       "yrwk"
     ),
     results_x = NULL,
-    initialize = function(){
-
+    initialize = function() {
       results_x <<- fd::schema$new(
         db_config = CONFIG$db_config,
         db_table = glue::glue("normomo_standard_results"),
@@ -48,19 +47,23 @@ standard <-  R6::R6Class(
     run_analysis = function(masterData, stack) {
       fd::msg("Running analysis")
 
-      pb <- RAWmisc::ProgressBarCreate(min=0,max=nrow(stack),flush=TRUE)
-      for(i in 1:nrow(stack)){
-        RAWmisc::ProgressBarSet(pb,i)
+      pb <- RAWmisc::ProgressBarCreate(min = 0, max = nrow(stack), flush = TRUE)
+      for (i in 1:nrow(stack)) {
+        RAWmisc::ProgressBarSet(pb, i)
 
-        s <- stack[i,]
+        s <- stack[i, ]
 
-        if(s[["runName"]]=="norway"){
+        if (s[["runName"]] == "norway") {
           dataAnalysis <- as.data.frame(masterData[!is.na(age),
-                                                   c("DoD","DoR","age"),with=F])
+            c("DoD", "DoR", "age"),
+            with = F
+          ])
           plotGraphs <- TRUE
         } else {
-          dataAnalysis <- as.data.frame(masterData[!is.na(age) & FYLKE==s[["fylke"]],
-                                                   c("DoD","DoR","age"),with=F])
+          dataAnalysis <- as.data.frame(masterData[!is.na(age) & FYLKE == s[["fylke"]],
+            c("DoD", "DoR", "age"),
+            with = F
+          ])
           plotGraphs <- FALSE
         }
 
@@ -84,28 +87,29 @@ standard <-  R6::R6Class(
           delayFunction = NULL,
           MOMOgroups = s[["MOMOgroups"]][[1]],
           MOMOmodels = s[["MOMOmodels"]][[1]],
-          verbose=FALSE)
+          verbose = FALSE
+        )
 
         MOMO::RunMoMo()
 
-        dataToSave <- rbindlist(MOMO::dataExport$toSave, fill=TRUE)
+        dataToSave <- rbindlist(MOMO::dataExport$toSave, fill = TRUE)
 
         res <- clean_exported_momo_data(
-          data=dataToSave,
-          s=s
+          data = dataToSave,
+          s = s
         )
 
-      results_x$db_upsert_load_data_infile(res[,names(results_x$db_field_types),with=F])
+        results_x$db_upsert_load_data_infile(res[, names(results_x$db_field_types), with = F])
       }
     },
-    run_graphs = function(stack){
+    run_graphs = function(stack) {
       fd::msg("Running graphs")
-      pb <- RAWmisc::ProgressBarCreate(min=0,max=nrow(stack),flush=TRUE)
+      pb <- RAWmisc::ProgressBarCreate(min = 0, max = nrow(stack), flush = TRUE)
 
-      for(i in 1:nrow(stack)){
-        RAWmisc::ProgressBarSet(pb,i)
+      for (i in 1:nrow(stack)) {
+        RAWmisc::ProgressBarSet(pb, i)
 
-        s <- stack[i,]
+        s <- stack[i, ]
         loc_code <- s[["runName"]]
         data <- results_x$dplyr_tbl() %>%
           dplyr::filter(location_code == loc_code) %>%
@@ -113,12 +117,12 @@ standard <-  R6::R6Class(
           fd::latin1_to_utf8()
 
         RunGraphsDeaths(
-          runName=s[["runName"]],
-          data=data,
-          folder=s[["MOMOFolderResultsGraphsStatus"]],
-          yearWeek=RAWmisc::YearWeek(s[["dateDataMinusOneWeek"]]),
-          dateData=max(s[["dateData"]][[1]]),
-          dateReliable=max(s[["dateData"]][[1]])-7
+          runName = s[["runName"]],
+          data = data,
+          folder = s[["MOMOFolderResultsGraphsStatus"]],
+          yearWeek = RAWmisc::YearWeek(s[["dateDataMinusOneWeek"]]),
+          dateData = max(s[["dateData"]][[1]]),
+          dateReliable = max(s[["dateData"]][[1]]) - 7
         )
       }
 
@@ -127,30 +131,34 @@ standard <-  R6::R6Class(
         dplyr::collect() %>%
         fd::latin1_to_utf8()
 
-      RunStatusTiles(allResults=allResults,
-                     folder=s[["MOMOFolderResultsGraphsStatus"]],
-                     yearWeek=RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]]),
-                     dateData=info[["dateData"]])
+      RunStatusTiles(
+        allResults = allResults,
+        folder = s[["MOMOFolderResultsGraphsStatus"]],
+        yearWeek = RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]]),
+        dateData = info[["dateData"]]
+      )
     },
-    run_all = function(masterData, info){
+    run_all = function(masterData, info) {
       stack <- GenerateStack(
-        f=info[["f"]],
-        dateDataMinusOneWeek=info[["dateDataMinusOneWeek"]],
-        dateData=info[["dateData"]]
+        f = info[["f"]],
+        dateDataMinusOneWeek = info[["dateDataMinusOneWeek"]],
+        dateData = info[["dateData"]]
       )
 
       stack <- stack[["stackAnalyses"]]
 
-      run_analysis(masterData=masterData, stack=stack)
+      run_analysis(masterData = masterData, stack = stack)
 
-      run_graphs(stack=stack)
+      run_graphs(stack = stack)
 
-      EmailSSI(folderResultsYearWeek=file.path(fhi::DashboardFolder("results",RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]]))),
-               dateReliable=info$dateData-CONFIG$WEEKS_UNRELIABLE*7)
+      EmailSSI(
+        folderResultsYearWeek = file.path(fhi::DashboardFolder("results", RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]]))),
+        dateReliable = info$dateData - CONFIG$WEEKS_UNRELIABLE * 7
+      )
 
       SavingRawData(
-        dateDataMinusOneWeek=info[["dateDataMinusOneWeek"]],
-        masterData=masterData
+        dateDataMinusOneWeek = info[["dateDataMinusOneWeek"]],
+        masterData = masterData
       )
 
       data_to_save <- results_x$dplyr_tbl() %>%
@@ -159,8 +167,8 @@ standard <-  R6::R6Class(
         fd::latin1_to_utf8()
 
       std_save_results_as_excel(
-        dateDataMinusOneWeek=info[["dateDataMinusOneWeek"]],
-        data_to_save=data_to_save
+        dateDataMinusOneWeek = info[["dateDataMinusOneWeek"]],
+        data_to_save = data_to_save
       )
     }
   )
@@ -172,11 +180,9 @@ standard <-  R6::R6Class(
 #' @param data_to_save a
 #' @export
 std_save_results_as_excel <- function(
-  folder_results = fhi::DashboardFolder("results"),
-  dateDataMinusOneWeek,
-  data_to_save
-  ) {
-
+                                      folder_results = fhi::DashboardFolder("results"),
+                                      dateDataMinusOneWeek,
+                                      data_to_save) {
   fd::msg("Saving results")
 
   openxlsx::write.xlsx(

@@ -5,9 +5,9 @@
 #' @import data.table
 #' @export
 clean_exported_momo_data <- function(
-                                  data,
-                                  s,
-                                  folder_results = fhi::DashboardFolder("results")) {
+                                     data,
+                                     s,
+                                     folder_results = fhi::DashboardFolder("results")) {
   id <- NULL
   GROUP <- NULL
   wk <- NULL
@@ -27,9 +27,9 @@ clean_exported_momo_data <- function(
   data[is.na(LPIc) | LPIc > nbc, LPIc := nbc]
 
   # making them slightly wider to hide the real information
-  #data[wk >= minCorrectedWeek & UPIc == 0, UPIc := 1]
-  #data[wk >= minCorrectedWeek & !is.na(UPIc), UPIc := UPIc + 3]
-  #data[wk >= minCorrectedWeek & !is.na(LPIc), LPIc := LPIc - 3]
+  # data[wk >= minCorrectedWeek & UPIc == 0, UPIc := 1]
+  # data[wk >= minCorrectedWeek & !is.na(UPIc), UPIc := UPIc + 3]
+  # data[wk >= minCorrectedWeek & !is.na(LPIc), LPIc := LPIc - 3]
   data[LPIc < 0, LPIc := 0]
 
   # prediction interval cant be below the real value!
@@ -41,9 +41,9 @@ clean_exported_momo_data <- function(
 
   data[, excess := nbc - Pnb]
 
-  setnames(data,"wk2","yrwk")
-  setnames(data,"GROUP","age")
-  data[,location_code:=s[["runName"]]]
+  setnames(data, "wk2", "yrwk")
+  setnames(data, "GROUP", "age")
+  data[, location_code := s[["runName"]]]
 
   return(data)
 }

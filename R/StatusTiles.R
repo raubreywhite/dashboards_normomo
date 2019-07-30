@@ -19,7 +19,7 @@ RunStatusTiles <- function(
   plotData[nbc < UPIb2, status := "3expected"]
   # plotData[nbc<LCIb-abs(UPIb2-LCIb),status:="4lower"]
 
-  plotData[fhidata::norway_locations_long_current,on="location_code",location_name:=location_name]
+  plotData[fhidata::norway_locations_long_current, on = "location_code", location_name := location_name]
   plotData <- plotData[!is.na(location_name)]
   unique(plotData$location_code)
   unique(plotData$location_name)
