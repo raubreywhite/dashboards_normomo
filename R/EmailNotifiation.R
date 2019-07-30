@@ -46,7 +46,7 @@ EmailSSI <- function(folderResultsYearWeek, dateReliable) {
 
   files <- list.files(file.path(folderResultsYearWeek, "MOMO"))
 
-  folderNorway1 <- files[stringr::str_detect(files, "Norway")]
+  folderNorway1 <- files[stringr::str_detect(files, "norway")]
   files <- list.files(file.path(folderResultsYearWeek, "MOMO", folderNorway1))
 
   folderNorway2 <- files[stringr::str_detect(files, "COMPLETE")]

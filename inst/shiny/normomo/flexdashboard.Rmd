@@ -13,9 +13,15 @@ library(data.table)
 library(fhi)
 library(shiny)
 
-availableDataSets <- rev(list.files("/data_app/normomo/","zip"))
+fd::initialize("normomo")
 
-data <- data.table(readRDS(file = "/data_app/normomo/data.RDS"))
+data <- pool %>% 
+  dplyr::tbl("normomo_standard_results") %>% 
+  dplyr::filter(location_code=="norway") %>%
+  dplyr::collect() %>% 
+  fd::latin1_to_utf8()
+data[fhidata::norway_locations_long_current,on="location_code",location_name:=location_name]
+
 w <- data.table(date=seq.Date(as.Date("2000-01-01"),as.Date("2030-01-01"),1))
 w[,wk2:=format.Date(date,"%G-%V")]
 w <- w[,.(date=max(date)),by=wk2]
@@ -72,7 +78,7 @@ Row
   
   ValueBoxLast8WeeksTotal <- function(){
     x <- ValueBoxLast8Weeks()
-    x[x$GROUP=="Total",]
+    x[x$age=="Total",]
   }
 
 ```  
@@ -106,7 +112,7 @@ Row {data-height=800}
 ```{r, include=FALSE}
 weeklyGraphPlotDataBrushed <- reactive({
   if(is.null(input$weeklyGraphAgeBrushed)) return(NULL)
-  retData <- data[data$GROUP == input$weeklyGraphAgeBrushed,]
+  retData <- data[data$age == input$weeklyGraphAgeBrushed,]
   retData$top <- max(c(retData$nbc, retData$UPIb4), na.rm = T) + 2
   retData$bottom <- max(c(0,min(c(retData$nbc-2,retData$LPIc-2), na.rm = T)))
   if (nrow(retData) == 0) retData <- NULL

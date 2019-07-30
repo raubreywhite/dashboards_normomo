@@ -17,8 +17,8 @@ GenerateStack <- function(
   stack <- data.frame(fylke = c(0, normomo::CONFIG$VALID_FYLKE))
 
   stack$runName <- c(
-    "Norway",
-    sprintf("Fylke_%s", formatC(normomo::CONFIG$VALID_FYLKE, width = 2, flag = 0))
+    "norway",
+    sprintf("county%s", formatC(normomo::CONFIG$VALID_FYLKE, width = 2, flag = 0))
   )
 
   stack$data_clean_name <- paste0(

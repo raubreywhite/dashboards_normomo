@@ -4,7 +4,7 @@
 \alias{RunGraphsStatistics}
 \title{Running graphs}
 \usage{
-RunGraphsStatistics(runName = "Norway", allPlotData,
+RunGraphsStatistics(runName = "norway", allPlotData,
   folder = fhi::DashboardFolder("results", file.path(RAWmisc::YearWeek(),
   "Graphs")), yearWeek = RAWmisc::YearWeek(), dateData = Sys.time())
 }

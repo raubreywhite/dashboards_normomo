@@ -12,40 +12,20 @@ RunStatusTiles <- function(
                            folder,
                            yearWeek,
                            dateData) {
-  yrwk <- rev(sort(as.character(unique(allResults$wk2))))[2:53]
-  plotData <- allResults[wk2 %in% yrwk & GROUP == "Total"]
+  yrwk <- rev(sort(as.character(unique(allResults$yrwk))))[2:53]
+  plotData <- allResults[yrwk %in% yrwk & age == "Total"]
   plotData[, status := "1veryhigh"]
   plotData[nbc < UPIb4, status := "2high"]
   plotData[nbc < UPIb2, status := "3expected"]
   # plotData[nbc<LCIb-abs(UPIb2-LCIb),status:="4lower"]
 
-  unique(plotData$name)
-  fylkeNames <- c(
-    "Norway" = "Norge",
-    "Fylke_01" = "\u00D8stfold",
-    "Fylke_02" = "Akershus",
-    "Fylke_03" = "Oslo",
-    "Fylke_04" = "Hedmark",
-    "Fylke_05" = "Oppland",
-    "Fylke_06" = "Buskerud",
-    "Fylke_07" = "Vestfold",
-    "Fylke_08" = "Telemark",
-    "Fylke_09" = "Aust-Agder",
-    "Fylke_10" = "Vest-Agder",
-    "Fylke_11" = "Rogaland",
-    "Fylke_12" = "Hordaland",
-    "Fylke_14" = "Sogn og Fjordane",
-    "Fylke_15" = "M\u00F8re og Romsdal",
-    "Fylke_50" = "Tr\u00F8ndelag",
-    "Fylke_18" = "Nordland",
-    "Fylke_19" = "Troms",
-    "Fylke_20" = "Finnmark"
-  )
+  plotData[fhidata::norway_locations_long_current,on="location_code",location_name:=location_name]
+  plotData <- plotData[!is.na(location_name)]
+  unique(plotData$location_code)
+  unique(plotData$location_name)
 
-  RAWmisc::RecodeDT(plotData, switch = fylkeNames, "name")
-  unique(plotData$name)
 
-  plotData[, name := factor(name, levels = rev(fylkeNames))]
+  plotData[, location_name := factor(location_name, levels = rev(fhidata::norway_locations_long_current[location_code %in% plotData$location_code]$location_name))]
 
   plotColours <- plotData[1:4]
   # plotColours[1,status:="4lower"]
@@ -53,7 +33,7 @@ RunStatusTiles <- function(
   plotColours[3, status := "2high"]
   plotColours[4, status := "1veryhigh"]
 
-  q <- ggplot(plotData, aes(x = wk2, y = name, fill = status))
+  q <- ggplot(plotData, aes(x = yrwk, y = location_name, fill = status))
   q <- q + geom_tile(colour = "black")
   q <- q + geom_tile(data = plotColours, alpha = 0)
   q <- q + scale_fill_manual("",
