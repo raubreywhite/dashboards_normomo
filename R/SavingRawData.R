@@ -7,9 +7,9 @@
 #' @import data.table
 #' @export SavingRawData
 SavingRawData <- function(
-                          folder_results = fhi::DashboardFolder("results"),
-                          dateDataMinusOneWeek,
-                          masterData) {
+  folder_results = fhi::DashboardFolder("results"),
+  dateDataMinusOneWeek,
+  masterData) {
   . <- NULL
   ageCat <- NULL
   yd <- NULL
@@ -58,3 +58,4 @@ SavingRawData <- function(
     )
   )
 }
+

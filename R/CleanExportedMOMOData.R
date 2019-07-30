@@ -3,8 +3,8 @@
 #' @param s a
 #' @param folder_results a
 #' @import data.table
-#' @export CleanExportedMOMOData
-CleanExportedMOMOData <- function(
+#' @export
+clean_exported_momo_data <- function(
                                   data,
                                   s,
                                   folder_results = fhi::DashboardFolder("results")) {
@@ -18,9 +18,7 @@ CleanExportedMOMOData <- function(
   UPIc <- NULL
 
 
-  data <- data[, c("GROUP", "wk", "wk2", "YoDi", "WoDi", "Pnb", "nb", "nbc", "UPIb2", "UPIb4", "UPIc", "LPIc", "UCIc", "LCIc", "zscore"), with = F]
-  data[, id := paste0(GROUP, wk, wk2)]
-  data[, wk2 := as.character(wk2)]
+  data <- data[!is.na(Pnb), c("GROUP", "wk", "wk2", "YoDi", "WoDi", "Pnb", "nb", "nbc", "UPIb2", "UPIb4", "UPIc", "LPIc", "UCIc", "LCIc", "zscore"), with = F]
 
   minCorrectedWeek <- min(data[nbc != nb]$wk)
 
@@ -29,9 +27,9 @@ CleanExportedMOMOData <- function(
   data[is.na(LPIc) | LPIc > nbc, LPIc := nbc]
 
   # making them slightly wider to hide the real information
-  data[wk >= minCorrectedWeek & UPIc == 0, UPIc := 1]
-  data[wk >= minCorrectedWeek & !is.na(UPIc), UPIc := UPIc + 3]
-  data[wk >= minCorrectedWeek & !is.na(LPIc), LPIc := LPIc - 3]
+  #data[wk >= minCorrectedWeek & UPIc == 0, UPIc := 1]
+  #data[wk >= minCorrectedWeek & !is.na(UPIc), UPIc := UPIc + 3]
+  #data[wk >= minCorrectedWeek & !is.na(LPIc), LPIc := LPIc - 3]
   data[LPIc < 0, LPIc := 0]
 
   # prediction interval cant be below the real value!
@@ -41,8 +39,11 @@ CleanExportedMOMOData <- function(
   data[wk < minCorrectedWeek, UPIc := nbc]
   data[wk < minCorrectedWeek, LPIc := nbc]
 
-
   data[, excess := nbc - Pnb]
+
+  setnames(data,"wk2","yrwk")
+  setnames(data,"GROUP","age")
+  data[,location_code:=s[["runName"]]]
 
   return(data)
 }

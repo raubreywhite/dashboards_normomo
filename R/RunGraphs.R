@@ -73,15 +73,15 @@ GraphTogether <- function(
     ylabel <- "Deaths per week"
   }
 
-  q <- ggplot(plottingData[wk2 <= RAWmisc::YearWeek(dateReliable)], aes(x = wkSplit))
+  q <- ggplot(plottingData[yrwk <= RAWmisc::YearWeek(dateReliable)], aes(x = wkSplit))
   q <- q + geom_ribbon(aes(ymin = -Inf, ymax = Lower, fill = "5lower"), alpha = 0.7)
   q <- q + geom_ribbon(aes(ymin = Lower, ymax = UPIb2, fill = "4expected"), alpha = 0.7)
   q <- q + geom_ribbon(aes(ymin = UPIb2, ymax = UPIb4, fill = "3high"), alpha = 0.7)
   q <- q + geom_ribbon(aes(ymin = UPIb4, ymax = Inf, fill = "2veryhigh"), alpha = 0.7)
-  q <- q + geom_ribbon(data = plottingData[wk2 <= RAWmisc::YearWeek(dateReliable) & unstableEstimates == "Unstable" & type == "top"], mapping = aes(ymin = LPIc, ymax = UPIc, fill = "1predinterval"), alpha = 0.3)
-  if (includeRealDeaths) q <- q + geom_line(data = plottingData[wk2 <= RAWmisc::YearWeek(dateReliable) & titlex %in% c(title1, title1a)], mapping = aes(y = nb, colour = "Rapporterte"), lwd = 0.5)
+  q <- q + geom_ribbon(data = plottingData[yrwk <= RAWmisc::YearWeek(dateReliable) & unstableEstimates == "Unstable" & type == "top"], mapping = aes(ymin = LPIc, ymax = UPIc, fill = "1predinterval"), alpha = 0.3)
+  if (includeRealDeaths) q <- q + geom_line(data = plottingData[yrwk <= RAWmisc::YearWeek(dateReliable) & titlex %in% c(title1, title1a)], mapping = aes(y = nb, colour = "Rapporterte"), lwd = 0.5)
   q <- q + geom_line(aes(y = nbc, colour = "Korrigert"), lwd = 0.5)
-  q <- q + geom_point(data = plottingData[wk2 <= RAWmisc::YearWeek(dateReliable) & unstableEstimates == "Unstable"], aes(y = nbc, shape = "Usikkert"), size = 2)
+  q <- q + geom_point(data = plottingData[yrwk <= RAWmisc::YearWeek(dateReliable) & unstableEstimates == "Unstable"], aes(y = nbc, shape = "Usikkert"), size = 2)
   q <- q + facet_wrap(~titlex, scales = "free", ncol = 1)
   # q <- q + labs(title=title)
   q <- q + scale_x_continuous("", breaks = breaks$wk, labels = breaks$label)
@@ -152,7 +152,7 @@ GraphPreviousWeeks <- function(plotData, title) {
   q <- q + geom_ribbon(data = plottingData[DoA == max(DoA)], mapping = aes(ymin = UPIb2, ymax = UPIb4, fill = "2high"), alpha = 0.5)
   q <- q + geom_ribbon(data = plottingData[DoA == max(DoA)], mapping = aes(ymin = UPIb4, ymax = Inf, fill = "1veryhigh"), alpha = 0.5)
   q <- q + geom_ribbon(data = plottingData[DoA == max(DoA)], mapping = aes(ymin = LPIc, ymax = UPIc, fill = "0predinterval"), alpha = 0.2)
-  q <- q + geom_line(mapping = aes(group = DoAFactor), color = "black", lwd = 1)
+  q <- q + geom_line(mapping = aes(age = DoAFactor), color = "black", lwd = 1)
   q <- q + geom_line(mapping = aes(color = DoAFactor), lwd = 0.5)
   # q <- q + geom_point(data=plottingData,mapping=aes(color=DoAFactor),size=2)
   q <- q + labs(title = title)
@@ -325,7 +325,7 @@ GraphsSeasons <- function(plotData) {
 #' @importFrom gridExtra grid.arrange
 #' @importFrom grDevices dev.off
 #' @export RunGraphsDeaths
-RunGraphsDeaths <- function(runName = "Norway",
+RunGraphsDeaths <- function(runName = "norway",
                             data,
                             folder = fhi::DashboardFolder("results", file.path(RAWmisc::YearWeek(), "Graphs")),
                             yearWeek = RAWmisc::YearWeek(),
@@ -335,7 +335,7 @@ RunGraphsDeaths <- function(runName = "Norway",
   #### NORWEGIAN
 
   storedData <- list()
-  if (runName == "Norway") {
+  if (runName == "norway") {
     runList <- c("Total", "0to4", "5to14", "15to64", "65P")
   } else {
     runList <- "Total"
@@ -375,7 +375,7 @@ RunGraphsDeaths <- function(runName = "Norway",
 
     q <- gridExtra::grid.arrange(
       GraphTogether(
-        data = data[GROUP == i],
+        data = data[age == i],
         title1 = title1,
         title2 = title2,
         includeRealDeaths = FALSE,
@@ -390,7 +390,7 @@ RunGraphsDeaths <- function(runName = "Norway",
 
     q <- gridExtra::grid.arrange(
       GraphTogether(
-        data = data[GROUP == i],
+        data = data[age == i],
         title1 = title1,
         title2 = title2,
         includeRealDeaths = TRUE,
@@ -405,7 +405,7 @@ RunGraphsDeaths <- function(runName = "Norway",
 
 
     # q <- gridExtra::grid.arrange(
-    #   GraphTogether(data=data[GROUP==i],
+    #   GraphTogether(data=data[age==i],
     #                 title1a=title1a,
     #                 title1b=title1b,
     #                 title2=title2,
@@ -473,7 +473,7 @@ GraphNPVPPV <- function(plotData, titleBias) {
 #' @importFrom gridExtra grid.arrange
 #' @importFrom grDevices dev.off
 #' @export RunGraphsStatistics
-RunGraphsStatistics <- function(runName = "Norway",
+RunGraphsStatistics <- function(runName = "norway",
                                 allPlotData,
                                 folder = fhi::DashboardFolder("results", file.path(RAWmisc::YearWeek(), "Graphs")),
                                 yearWeek = RAWmisc::YearWeek(),
@@ -483,18 +483,18 @@ RunGraphsStatistics <- function(runName = "Norway",
 
 
   plotData <- copy(allPlotData)
-  plotData[, max_wk := max(wk, na.rm = T), by = .(DoA, GROUP)]
+  plotData[, max_wk := max(wk, na.rm = T), by = .(DoA, age)]
   plotData[, lag := max_wk - wk]
 
   plotData[DoA == max(DoA), true_nbc := nbc]
-  plotData[, true_nbc := mean(true_nbc, na.rm = T), by = .(wk, GROUP)]
+  plotData[, true_nbc := mean(true_nbc, na.rm = T), by = .(wk, age)]
   plotData[wk >= max(wk) - 10, true_nbc := NA]
 
   plotData[, nbc_bias := nbc - true_nbc]
   plotData[nbc == 0 & true_nbc > 10, nbc_bias := NA]
 
   plotData[DoA == max(DoA), true_zscore := zscore]
-  plotData[, true_zscore := mean(true_zscore, na.rm = T), by = .(wk, GROUP)]
+  plotData[, true_zscore := mean(true_zscore, na.rm = T), by = .(wk, age)]
   plotData[wk >= max(wk) - 10, true_zscore := NA]
 
   plotData[, truePos2 := true_zscore > 2]

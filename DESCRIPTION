@@ -25,7 +25,10 @@ Imports:
   grDevices,
   stats,
   zip,
-  openxlsx
+  openxlsx,
+  R6,
+  fd,
+  fhidata
 Suggests:
   testthat,
     knitr,

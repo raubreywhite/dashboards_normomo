@@ -4,7 +4,7 @@
 \alias{RunGraphsDeaths}
 \title{Running graphs}
 \usage{
-RunGraphsDeaths(runName = "Norway", data,
+RunGraphsDeaths(runName = "norway", data,
   folder = fhi::DashboardFolder("results", file.path(RAWmisc::YearWeek(),
   "Graphs")), yearWeek = RAWmisc::YearWeek(), dateData = Sys.time(),
   dateReliable = RAWmisc::YearWeek())
