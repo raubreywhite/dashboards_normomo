@@ -25,7 +25,7 @@ model <- standard$new()
 results_x <- model$results_x
 model$run_all(masterData=masterData, info=info)
 
-EmailInternal(folderResultsYearWeek=file.path(fhi::DashboardFolder("results",RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]]))))
+email_internal(folderResultsYearWeek=file.path(fhi::DashboardFolder("results",RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]]))))
 
 CreateLatestDoneFile(f=info$f)
 

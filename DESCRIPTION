@@ -29,7 +29,8 @@ Imports:
   R6,
   fd,
   fhidata,
-  fhiplot
+  fhiplot,
+  blastula
 Suggests:
   testthat,
     knitr
