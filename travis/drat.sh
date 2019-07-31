@@ -16,9 +16,9 @@ addToDrat(){
 
   Rscript -e "drat::insertPackage('$PKG_REPO/$PKG_TARBALL', \
     repodir = '.', \
-    commit='Travis update $PKG_REPO: build $TRAVIS_BUILD_NUMBER')"
+    commit='Travis update $PKG_REPO')"
   Rscript -e "saveRDS(read.dcf('src/contrib/PACKAGES'),'src/contrib/PACKAGES.rds')"
-  git commit -a -m "Travis update $PKG_REPO: build $TRAVIS_BUILD_NUMBER"
+  git commit -a -m "Travis update $PKG_REPO"
   git push 2>err.txt
 
 }
@@ -26,7 +26,7 @@ addToDrat(){
 
 set -o errexit -o nounset
 PKG_REPO="/home/"
-cd /tmp
+cd /home
 mkdir drat; cd drat
 
 addToDrat

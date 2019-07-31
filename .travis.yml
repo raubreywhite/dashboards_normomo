@@ -4,13 +4,9 @@ services:
 - docker
 
 before_install:
-- ls -la
-- pwd
+- bash travis/make.sh
 - package=$(pwd)
 - docker run --rm -v $package:/package raw996/dhadley:3.6.0 R -e "devtools::check('/package/')"
 
 after_success:
-- docker run --rm -v $package:/package -v $HOME:/home/ raw996/dhadley:3.6.0 R -e "devtools::build('/package/',path='/home')"
-- cd $HOME
-- PKG_TARBALL=$(ls -1t *.tar.gz | head -n 1);
-- docker run --rm -v $package:/package -v $HOME:/home/ -e PKG_TARBALL=$PKG_TARBALL -e GITHUB_PAT=$GITHUB_PAT raw996/dhadley:3.6.0 bash /package/travis/drat.sh
+- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash travis/after-sucess.sh
