@@ -5,10 +5,12 @@ r_packages:
 - pkgdown
 - lintr
 - styler
+
 before_install:
+- sudo apt-get install libnetcdf-dev netcdf-bin
 - bash travis/make.sh
+
 after_success:
-- Rscript -e 'lintr::lint_package(lint=lintr::with_defaults(camel_case_linter = NULL,
   snake_case_linter=NULL, line_length_linter = lintr::line_length_linter(120), object_usage_linter=NULL))'
 - Rscript -e 'library(covr); codecov()'
 - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash
