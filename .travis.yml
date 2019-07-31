@@ -9,4 +9,4 @@ before_install:
 - docker run --rm -v $package:/package raw996/dhadley:3.6.0 R -e "devtools::check('/package/')"
 
 after_success:
-- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash travis/after-sucess.sh
+- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash travis/after-success.sh
