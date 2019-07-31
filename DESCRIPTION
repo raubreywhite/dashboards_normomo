@@ -30,7 +30,9 @@ Imports:
   fd,
   fhidata,
   fhiplot,
-  blastula
+  blastula,
+  dplyr,
+  glue
 Suggests:
   testthat,
     knitr
