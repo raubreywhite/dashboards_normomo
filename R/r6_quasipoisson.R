@@ -140,7 +140,7 @@ std_run_analysis <- function(masterData, stack) {
   }
 }
 
-std_run_graphs = function(stack, results_x) {
+std_run_graphs <- function(stack, results_x) {
   fd::msg("Running graphs")
   pb <- RAWmisc::ProgressBarCreate(min = 0, max = nrow(stack), flush = TRUE)
 
