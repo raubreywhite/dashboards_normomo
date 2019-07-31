@@ -1,9 +1,12 @@
 language: minimal
 
+services:
+- docker
+
 before_install:
 - ls -la
 - pwd
-- wd=$(PWD)
+- wd=$(pwd)
 - docker run --rm -v $wd:/package raw996/dhadley:3.6.0 R -e "devtools::check('/package/')"
 
 # 
