@@ -12,8 +12,9 @@ before_install:
 - echo $retval
 
 after_success:
-- docker run --rm -v $package:/package -v $HOME:/home/ raw996/dhadley:3.6.0 R -e "devtools::build('/package/',path='/home/')"
-- cd ..
+- docker run --rm -v $package:/package -v $HOME:/home/ raw996/dhadley:3.6.0 R -e "devtools::build('/package/',path='/home')"
+- cd $HOME
+- ls -la
 - PKG_TARBALL=$(ls -1t *.tar.gz | head -n 1);
 - cd $package
 - docker run --rm -v $package:/package -v $HOME:/home/ -e PKG_TARBALL=$PKG_TARBALL raw996/dhadley:3.6.0 bash /package/travis/drat.sh
