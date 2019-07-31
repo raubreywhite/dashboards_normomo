@@ -2,6 +2,8 @@ fhi::DashboardInitialiseOpinionated("normomo", PACKAGE_DIR=".")
 fd::initialize("normomo")
 suppressMessages(library(data.table))
 suppressMessages(library(ggplot2))
+options(error=traceback)
+
 
 # Set up data
 if (!dir.exists("/data_raw/sykdomspuls/normomo")) dir.create("/data_raw/sykdomspuls/normomo")
