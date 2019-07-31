@@ -30,7 +30,7 @@ standard <- R6::R6Class(
 
       std_run_analysis(masterData = masterData, stack = stack)
 
-      std_run_graphs(stack = stack)
+      std_run_graphs(stack = stack, results_x = results_x)
 
       email_ssi(
         folderResultsYearWeek = file.path(fhi::DashboardFolder("results", RAWmisc::YearWeek(info[["dateDataMinusOneWeek"]]))),
@@ -140,7 +140,7 @@ std_run_analysis <- function(masterData, stack) {
   }
 }
 
-std_run_graphs <- function(stack) {
+std_run_graphs = function(stack, results_x) {
   fd::msg("Running graphs")
   pb <- RAWmisc::ProgressBarCreate(min = 0, max = nrow(stack), flush = TRUE)
 
