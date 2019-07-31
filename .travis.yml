@@ -8,5 +8,11 @@ before_install:
 - pwd
 - wd=$(pwd)
 - docker run --rm -v $wd:/package raw996/dhadley:3.6.0 R -e "devtools::check('/package/')"
+- retval=$?
+- echo $retval
 
+after_success:
+- docker run --rm -v $wd:/package raw996/dhadley:3.6.0 R -e "devtools::build('/package/')"
+- ls -la
+- pwd
 # 
