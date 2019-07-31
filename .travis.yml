@@ -1,4 +1,14 @@
 language: r
+
+warnings_are_errors: true
+#cache: packages
+
+repos:
+  CRAN: https://cloud.r-project.org
+  folkehelseinstituttet: https://folkehelseinstituttet.github.io/drat/
+  euromomo: https://euromomonetwork.github.io/drat/
+  raubreywhite: https://raubreywhite.github.io/drat/
+
 r_packages:
 - covr
 - drat
@@ -11,7 +21,6 @@ before_install:
 - bash travis/make.sh
 
 after_success:
-  snake_case_linter=NULL, line_length_linter = lintr::line_length_linter(120), object_usage_linter=NULL))'
 - Rscript -e 'library(covr); codecov()'
 - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash
   travis/drat.sh
