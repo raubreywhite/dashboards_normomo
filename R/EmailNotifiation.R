@@ -10,7 +10,8 @@ New NorMOMO results available to download from:
 
 <a href='file:///F:/Prosjekter/Dashboards/results/normomo/'>F:/Prosjekter/Dashboards/results/normomo/</a>
 ",
-      footer = fd::e_footer())
+      footer = fd::e_footer()
+    )
 
   email %>%
     blastula::smtp_send(
@@ -20,7 +21,6 @@ New NorMOMO results available to download from:
       subject = fd::e_subject("New NorMOMO results available"),
       credentials = blastula::creds_file("/etc/gmailr/blastula.txt")
     )
-
 }
 
 
@@ -63,7 +63,8 @@ Sincerely,
 
 Norway
 ",
-      footer = fd::e_footer()) %>%
+      footer = fd::e_footer()
+    ) %>%
     blastula::add_attachment(reliableData, error_on_missing = TRUE)
 
   email %>%

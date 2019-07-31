@@ -55,7 +55,7 @@ standard <- R6::R6Class(
   )
 )
 
-std_results_field_types = c(
+std_results_field_types <- c(
   "location_code" = "TEXT",
   "age" = "TEXT",
   "wk" = "INTEGER",
@@ -75,13 +75,13 @@ std_results_field_types = c(
   "excess" = "DOUBLE"
 )
 
-std_results_keys = c(
+std_results_keys <- c(
   "location_code",
   "age",
   "yrwk"
 )
 
-std_run_analysis = function(masterData, stack) {
+std_run_analysis <- function(masterData, stack) {
   fd::msg("Running analysis")
 
   pb <- RAWmisc::ProgressBarCreate(min = 0, max = nrow(stack), flush = TRUE)
@@ -92,15 +92,15 @@ std_run_analysis = function(masterData, stack) {
 
     if (s[["runName"]] == "norway") {
       dataAnalysis <- as.data.frame(masterData[!is.na(age),
-                                               c("DoD", "DoR", "age"),
-                                               with = F
-                                               ])
+        c("DoD", "DoR", "age"),
+        with = F
+      ])
       plotGraphs <- TRUE
     } else {
       dataAnalysis <- as.data.frame(masterData[!is.na(age) & FYLKE == s[["fylke"]],
-                                               c("DoD", "DoR", "age"),
-                                               with = F
-                                               ])
+        c("DoD", "DoR", "age"),
+        with = F
+      ])
       plotGraphs <- FALSE
     }
 
@@ -140,7 +140,7 @@ std_run_analysis = function(masterData, stack) {
   }
 }
 
-std_run_graphs = function(stack) {
+std_run_graphs <- function(stack) {
   fd::msg("Running graphs")
   pb <- RAWmisc::ProgressBarCreate(min = 0, max = nrow(stack), flush = TRUE)
 
