@@ -4,9 +4,10 @@ services:
 - docker
 
 before_install:
+- export RVERSION=3.6.0
 - bash travis/make.sh
-- package=$(pwd)
-- docker run --rm -v $package:/package raw996/dhadley:3.6.0 R -e "devtools::check('/package/')"
+- export package=$(pwd)
+- docker run --rm -v $package:/package raw996/dhadley:$RVERSION R -e "devtools::check('/package/')"
 
 after_success:
 - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash travis/after-success.sh
