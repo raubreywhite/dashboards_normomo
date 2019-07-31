@@ -4,17 +4,23 @@ suppressMessages(library(data.table))
 suppressMessages(library(ggplot2))
 options(error=traceback)
 
-email <- blastula::compose_email(body ="hello")
+
 
 print(file.exists("/etc/gmailr/blastula.txt"))
 
-email %>%
-  blastula::smtp_send(
-    from = "dashboardsfhi@gmail.com",
-    to = "riwh@fhi.no",
-    subject = "hello",
-    credentials = blastula::creds_file("/etc/gmailr/blastula.txt")
-  )
+print(blastula::creds_file("/etc/gmailr/blastula.txt"))
+
+fd::msg("attempting email")
+
+email <- blastula::compose_email(body ="hello")
+
+blastula::smtp_send(
+  email,
+  from = "dashboardsfhi@gmail.com",
+  to = "riwh@fhi.no",
+  subject = "hello",
+  credentials = blastula::creds_file("/etc/gmailr/blastula.txt")
+)
 
 # Set up data
 if (!dir.exists("/data_raw/sykdomspuls/normomo")) dir.create("/data_raw/sykdomspuls/normomo")
