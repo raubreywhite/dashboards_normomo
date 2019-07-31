@@ -6,13 +6,22 @@ services:
 before_install:
 - ls -la
 - pwd
-- wd=$(pwd)
-- docker run --rm -v $wd:/package raw996/dhadley:3.6.0 R -e "devtools::check('/package/')"
+- package=$(pwd)
+- docker run --rm -v $package:/package $HOME:/home/ raw996/dhadley:3.6.0 R -e "devtools::check('/package/')"
 - retval=$?
 - echo $retval
 
 after_success:
-- docker run --rm -v $wd:/package raw996/dhadley:3.6.0 R -e "devtools::build('/package/')"
+- docker run --rm \
+  -v $package:/package \
+  -v $HOME:/home/ \
+  raw996/dhadley:3.6.0 R -e "devtools::build('/package/',path='/home/')"
+- PKG_TARBALL=$(ls -1t ../*.tgz | head -n 1);
+- docker run --rm \
+  -v $package:/package 
+  -v $HOME:/home/ \
+  -e PKG_TARBALL=$PKG_TARBALL \
+  raw996/dhadley:3.6.0 bash ./travis/drat.sh
 - ls -la
-- pwd
+- ls -la $HOME
 # 

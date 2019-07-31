@@ -25,8 +25,8 @@ addToDrat(){
 
 
 set -o errexit -o nounset
-PKG_REPO=$PWD
-cd ..
+PKG_REPO="/home/"
+cd /tmp
 mkdir drat; cd drat
 
 addToDrat
