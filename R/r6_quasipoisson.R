@@ -144,16 +144,17 @@ std_run_graphs <- function(stack, results_x) {
   fd::msg("Running graphs")
   pb <- RAWmisc::ProgressBarCreate(min = 0, max = nrow(stack), flush = TRUE)
 
-  for (i in 1:nrow(stack)) {
+  for (i in 1:nrow(stack)){
+    fd::msg(glue::glue("{i}a"))
     RAWmisc::ProgressBarSet(pb, i)
-
+    fd::msg(glue::glue("{i}b"))
     s <- stack[i, ]
     loc_code <- s[["runName"]]
     data <- results_x$dplyr_tbl() %>%
       dplyr::filter(location_code == loc_code) %>%
       dplyr::collect() %>%
       fd::latin1_to_utf8()
-
+    fd::msg(glue::glue("{i}c"))
     RunGraphsDeaths(
       runName = s[["runName"]],
       data = data,
@@ -162,6 +163,7 @@ std_run_graphs <- function(stack, results_x) {
       dateData = max(s[["dateData"]][[1]]),
       dateReliable = max(s[["dateData"]][[1]]) - 7
     )
+    fd::msg(glue::glue("{i}d"))
   }
 
   allResults <- results_x$dplyr_tbl() %>%
